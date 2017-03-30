@@ -3,7 +3,7 @@
 
     <data>
         <variable
-            name="mainViewModel"
+            name="viewModel"
             type="moviefinder.samusko.com.androidmoviefindermvvm.ui.main.MainActivityViewModel"/>
     </data>
 
