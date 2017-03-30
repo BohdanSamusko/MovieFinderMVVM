@@ -1,7 +1,9 @@
-package moviefinder.samusko.com.androidmoviefindermvvm;
+package moviefinder.samusko.com.androidmoviefindermvvm.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import moviefinder.samusko.com.androidmoviefindermvvm.R;
 
 public class MainActivity extends AppCompatActivity {
 
