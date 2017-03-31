@@ -1,5 +1,6 @@
 package moviefinder.samusko.com.moviefinder.ui.main;
 
+import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,6 +18,7 @@ import moviefinder.samusko.com.moviefinder.base.mvvm.activities.ActivityViewMode
 import moviefinder.samusko.com.moviefinder.services.rest.dto.movies.MovieDTO;
 import moviefinder.samusko.com.moviefinder.services.rest.dto.movies.SearchMovieListResponseDTO;
 import moviefinder.samusko.com.moviefinder.services.rest.models.MoviesModel;
+import moviefinder.samusko.com.moviefinder.ui.movie_details.MovieDetailsActivity;
 import rx.Subscriber;
 import timber.log.Timber;
 
@@ -29,6 +31,7 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
     private MainActivity activity;
     private MoviesModel moviesModel;
     public final ObservableBoolean isLoading = new ObservableBoolean();
+    private final ObservableBoolean isLoadingNextPage = new ObservableBoolean();
     public final ObservableField<String> enteredQuery = new ObservableField<>(); // query from editView
     private String searchedQuery; // query which is already searched
 
@@ -67,7 +70,7 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
         moviesAdapter.setOnItemClickListener(new RecyclerBindingAdapter.OnItemClickListener<MovieDTO>() {
             @Override
             public void onItemClick(int position, MovieDTO item) {
-
+                openMovieDetails(item);
             }
         });
 
@@ -103,6 +106,8 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
 
         if (nextPage == 1) {
             isLoading.set(true);
+        }else {
+            isLoadingNextPage.set(true);
         }
 
         String apiKey = activity.getResources().getString(R.string.the_movie_db_api_key);
@@ -111,6 +116,7 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
             public void onCompleted() {
                 Timber.i("onCompleted");
                 isLoading.set(false);
+                isLoadingNextPage.set(false);
             }
 
             @Override
@@ -118,12 +124,14 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
                 Timber.e("onError: " + e.getLocalizedMessage());
                 Toast.makeText(activity, "onError:" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 isLoading.set(false);
+                isLoadingNextPage.set(false);
             }
 
             @Override
             public void onNext(SearchMovieListResponseDTO searchMovieListResponseDTO) {
                 Timber.i("onNext");
                 isLoading.set(false);
+                isLoadingNextPage.set(false);
                 if (searchMovieListResponseDTO != null) {
                     if (nextPage == 1) {
                         moviesItems.clear();
@@ -149,5 +157,16 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
 
     public ArrayList<MovieDTO> getMoviesItems() {
         return moviesItems;
+    }
+
+    public ObservableBoolean getIsLoadingNextPage() {
+        return isLoadingNextPage;
+    }
+
+    @Override
+    public void openMovieDetails(MovieDTO movieDTO) {
+        Intent intent = new Intent(activity, MovieDetailsActivity.class);
+        intent.putExtra(MovieDetailsActivity.MOVIE_OBJECT, movieDTO);
+        activity.startActivity(intent);
     }
 }
