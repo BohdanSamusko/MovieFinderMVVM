@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "moviefinder.samusko.com.androidmoviefindermvvm"
+        applicationId "moviefinder.samusko.com.moviefinder"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -43,5 +43,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
     compile 'com.jakewharton.timber:timber:4.5.0'
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
 }
