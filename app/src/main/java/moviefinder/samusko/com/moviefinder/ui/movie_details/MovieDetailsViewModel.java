@@ -30,6 +30,7 @@ public class MovieDetailsViewModel extends ActivityViewModel<MovieDetailsActivit
 
     @Override
     public void onBackIconClick(View view) {
-        activity.finish();
+        activity.onBackPressed();
     }
+
 }
