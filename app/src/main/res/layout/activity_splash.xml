@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="moviefinder.samusko.com.moviefinder.ui.splash.SplashActivity">
+    tools:context="mvvm.steelkiwi.com.moviefinder.ui.splash.SplashActivity">
 
     <TextView
         android:layout_width="match_parent"
