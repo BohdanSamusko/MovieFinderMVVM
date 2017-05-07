@@ -6,7 +6,7 @@ import android.view.View;
 
 public final class BindingConversions {
     private BindingConversions() {
-        throw new AssertionError();
+        throw new AssertionError(); // blocking creation of instance
     }
 
     @BindingConversion

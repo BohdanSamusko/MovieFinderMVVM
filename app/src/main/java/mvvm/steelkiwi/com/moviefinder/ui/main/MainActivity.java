@@ -22,6 +22,7 @@ public class MainActivity extends BindingActivity<ActivityMainBinding, MainActiv
         return mainActivityViewModel;
     }
 
+    // method returns variable which defined in xml file
     @Override
     public int getVariable() {
         return BR.viewModel;

@@ -39,8 +39,11 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
 
     private final int DEVICE_ITEM_LAYOUT = R.layout.item_movie_preview; // id of list item
 
-    private ArrayList<MovieDTO> moviesItems = new ArrayList<>(); // collection for storing results of searching
-    private RecyclerBindingAdapter<MovieDTO> adapter; // adapter for recycler view
+    // collection for storing results of searching
+    private ArrayList<MovieDTO> moviesItems = new ArrayList<>();
+
+    // custom binding adapter for recycler view
+    private RecyclerBindingAdapter<MovieDTO> adapter;
 
     // for pagination logic
     private int currentPage = 1;

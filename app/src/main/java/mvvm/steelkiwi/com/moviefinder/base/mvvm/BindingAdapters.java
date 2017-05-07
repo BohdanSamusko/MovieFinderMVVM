@@ -12,11 +12,12 @@ import mvvm.steelkiwi.com.moviefinder.R;
 public final class BindingAdapters {
 
     private BindingAdapters() {
-        throw new AssertionError();
+        throw new AssertionError(); // blocking creation of instance
     }
 
     @BindingAdapter("android:src")
     public static void loadImage(ImageView view, String url) {
+        // loading image with third-party library or own custom utility
         Glide.with(view.getContext())
                 .load(url)
                 .placeholder(R.drawable.ic_default_movie_thumbnail)
