@@ -10,7 +10,7 @@
     <string name="overview">Overview</string>
     <string name="loading_next_page">Loading next page...</string>
     <string name="start">Start exploring</string>
-    <string name="project_overview">This project was designed to demonstrate implementation of MVVM with using Data Binding Library</string>
+    <string name="project_overview">This project was designed to demonstrate implementation of MVVM and Data Binding Library</string>
     <string name="tap_twice_to_close_the_app">Tap twice on Back Icon to close the app</string>
 
 </resources>

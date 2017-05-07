@@ -33,4 +33,9 @@ public final class BindingAdapters {
             }
         });
     }
+
+  /*  @BindingAdapter("app:setTouchListener")
+    public static  void onTouchEvent(View view, View.OnTouchListener onTouchListener){
+        view.setOnTouchListener(onTouchListener);
+    }*/
 }

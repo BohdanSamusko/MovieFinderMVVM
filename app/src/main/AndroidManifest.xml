@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="mvvm.steelkiwi.com.moviefinder.ui.main.MainActivity" />
         <activity android:name="mvvm.steelkiwi.com.moviefinder.ui.movie_details.MovieDetailsActivity" />
-        <activity android:name="mvvm.steelkiwi.com.moviefinder.ui.splash.StartActivity">
+        <activity android:name="mvvm.steelkiwi.com.moviefinder.ui.start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

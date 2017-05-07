@@ -1,15 +1,9 @@
-package mvvm.steelkiwi.com.moviefinder.ui.splash;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
+package mvvm.steelkiwi.com.moviefinder.ui.start;
 
 import mvvm.steelkiwi.com.moviefinder.BR;
 import mvvm.steelkiwi.com.moviefinder.R;
-import mvvm.steelkiwi.com.moviefinder.base.BaseActivity;
 import mvvm.steelkiwi.com.moviefinder.base.mvvm.activities.BindingActivity;
 import mvvm.steelkiwi.com.moviefinder.databinding.ActivityStartBinding;
-import mvvm.steelkiwi.com.moviefinder.ui.main.MainActivity;
 
 public class StartActivity extends BindingActivity<ActivityStartBinding, StartActivityVM> {
 
