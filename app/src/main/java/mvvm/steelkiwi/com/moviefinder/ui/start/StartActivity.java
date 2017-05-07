@@ -4,6 +4,7 @@ import mvvm.steelkiwi.com.moviefinder.BR;
 import mvvm.steelkiwi.com.moviefinder.R;
 import mvvm.steelkiwi.com.moviefinder.base.mvvm.activities.BindingActivity;
 import mvvm.steelkiwi.com.moviefinder.databinding.ActivityStartBinding;
+import timber.log.Timber;
 
 public class StartActivity extends BindingActivity<ActivityStartBinding, StartActivityVM> {
 
@@ -11,6 +12,7 @@ public class StartActivity extends BindingActivity<ActivityStartBinding, StartAc
 
     @Override
     public StartActivityVM onCreate() {
+        Timber.i("onCreate();");
         startActivityVM = new StartActivityVM(this);
         return startActivityVM;
     }

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import mvvm.steelkiwi.com.moviefinder.base.BaseActivity;
+import timber.log.Timber;
 
 
 public abstract class BindingActivity<B extends ViewDataBinding, VM extends ActivityViewModel>
@@ -23,10 +24,12 @@ public abstract class BindingActivity<B extends ViewDataBinding, VM extends Acti
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Timber.i("onCreate();");
         bind();
     }
 
     public void bind() {
+        Timber.i("bind();");
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         this.viewModel = viewModel == null ? onCreate() : viewModel;
         binding.setVariable(getVariable(), viewModel);

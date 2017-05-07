@@ -20,9 +20,64 @@ import mvvm.steelkiwi.com.moviefinder.utils.SimpleAnimListener;
 
 public class StartScreenAnimations {
 
+    private final static int SCREEN_START_ELEMENTS_DURATION = 450;
+
     private final static int COLOR_REVEALING_DURATION = 500;
     private final static int ELEMENTS_FADING_DURATION = 350;
     private final static int ELEMENTS_TRANSLATE_VALUE = 200;
+
+
+    public static void onScreenRevealAnimation(@NonNull final ActivityStartBinding binding){
+        AnimationUtils.fadeAnimation(binding.projectTitle, 0f, 1f, SCREEN_START_ELEMENTS_DURATION, 0, new AccelerateInterpolator());
+        AnimationUtils.translateYAnim(binding.projectTitle, -ELEMENTS_TRANSLATE_VALUE, 0, SCREEN_START_ELEMENTS_DURATION, 0, new AccelerateInterpolator());
+
+        binding.projectDescription.setVisibility(View.INVISIBLE);
+        AnimationUtils.fadeAnimation(binding.projectDescription, 0f, 1f, SCREEN_START_ELEMENTS_DURATION, SCREEN_START_ELEMENTS_DURATION, new AccelerateInterpolator()).addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                binding.projectDescription.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+        binding.startButton.setVisibility(View.INVISIBLE);
+        AnimationUtils.fadeAnimation(binding.startButton, 0f, 1f, SCREEN_START_ELEMENTS_DURATION, 2*SCREEN_START_ELEMENTS_DURATION, new AccelerateInterpolator()).addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                binding.startButton.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+    }
 
 
     public static void onStartButtonAnimation(@NonNull final ActivityStartBinding binding, @NonNull Point pointOfClick, @NonNull final SimpleAnimListener simpleAnimListener) {
@@ -54,7 +109,6 @@ public class StartScreenAnimations {
                 revealColor, pointOfClick.x, pointOfClick.y, ELEMENTS_FADING_DURATION, COLOR_REVEALING_DURATION, interpolator).addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-                binding.projectTitle.clearAnimation();
                 simpleAnimListener.onStart();
             }
 
