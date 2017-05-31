@@ -3,40 +3,40 @@
 
 This project was designed to demonstrate implementation of MVVM and Data Binding Library
 
-#An example of using Data Binding Library + MVVM in Android 
+# An example of using Data Binding Library + MVVM in Android 
 
 
-##What is data binding? 
+## What is data binding? 
 Data Binding Library was firstly represented on Google I/O 2015.  This library enable to bind code logic which represents behaviour of UI with layout files just adding small parts of code to XML. 
 
 
-##What is the profit of it? 
+## What is the profit of it? 
 
-###Advantages
+### Advantages
  - Increase speed of development 
  - Сode is clear and structured
  - Reduce amount of boilerplate code 
  - Automatically updating view state when bound data was changed
  - Ability to add custom binding adapters and conversions which allows to bind view with data in your own custom way 
 
-###Disadvantages 
+### Disadvantages 
  - It requires some time for learning and good base skills 
  - Sometimes it is hard to debug if you don't know where you make mistake in xml file  
  - You will never want to go back to your previous code-style :) 
 
 
 
-#Project's Details 
+# Project's Details 
  In this article will be described basic steps for creating simple REST-client app "AndroidMovieFinder" which will allow users to find movies and short overview of it by typing search word. Sample project uses TheMovieDB API for retrieving data. More about their API you can find here: [Overview of The Movie DB](https://www.themoviedb.org/about).
 
 
 <Screenshots of the app>
 
-###!!!!!! to do
-###**Here will be two screenshots (or gifs) of the sample project **
-###!!!!! to do
+### !!!!!! to do
+### **Here will be two screenshots (or gifs) of the sample project **
+### !!!!! to do
 
-##Data Binding Library Implementation
+## Data Binding Library Implementation
 
 * Check project's Android Plugin for Gradle (build.gradle file of the project). The version of plugin should be **'1.5.0-alpha1'** or higher.
 	If you have later version please update it as described here: [How to update gradle plugin](https://developer.android.com/studio/releases/gradle-plugin.html#updating-plugin)
@@ -59,7 +59,7 @@ android {
 
 
 
-##Search screen 
+## Search screen 
 
 Let's observe what is going on search screen. There are field for typing search word, button for starting searching and list for displaying results on this screen.
 
@@ -413,7 +413,7 @@ public class MainActivity extends BindingActivity<ActivityMainBinding, MainActiv
 ```
 This class override two methods **`getVariable()`** and **`getLayoutId()`**  from **`BindingActivity.java`** which is using by Data Binding Library for binding xml and view model class presentation. 
 
-###**Base class for Activities with Data Binding implementation**
+### **Base class for Activities with Data Binding implementation**
 
 All activities which is using Data Binding extends BindingActivity class with two generic: 
 
@@ -810,12 +810,12 @@ public class RecyclerBindingAdapter<T>
 
 
 
-##**Instead of Conclusion**
+## **Instead of Conclusion**
 
 The Data Binding Library + MVVM is a pretty cool combination for making code more clear and avoiding boilerplates such as **`findViewById()`** for initializing and updating views and handling their states. As a result it reduce time for development especially when there are some practic skills and knowledges of using Data Binding. 
 
 
-##**Useful links:**
+## **Useful links:**
 
 1. [Overview of The Movie DB](https://www.themoviedb.org/about)
 
