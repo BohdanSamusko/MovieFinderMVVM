@@ -20,7 +20,6 @@ public final class BindingAdapters {
         // loading image with third-party library or own custom utility
         Glide.with(view.getContext())
                 .load(url)
-                .placeholder(R.drawable.ic_default_movie_thumbnail)
                 .into(view);
     }
 
@@ -33,9 +32,4 @@ public final class BindingAdapters {
             }
         });
     }
-
-  /*  @BindingAdapter("app:setTouchListener")
-    public static  void onTouchEvent(View view, View.OnTouchListener onTouchListener){
-        view.setOnTouchListener(onTouchListener);
-    }*/
 }

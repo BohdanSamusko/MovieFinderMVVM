@@ -2,6 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="mvvm.steelkiwi.com.moviefinder.ui.main.MainActivityViewModel" />
@@ -13,6 +14,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/lightGrayBackground"
         tools:context="mvvm.steelkiwi.com.moviefinder.ui.main.MainActivity">
 
         <LinearLayout
@@ -21,56 +23,50 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_weight="0"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_height"
+                android:layout_weight="0"
                 android:background="@color/colorPrimary"
                 android:elevation="@dimen/toolbar_elevation"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:padding="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:text="@string/app_name"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/material_text_title" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/editText"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_edit_text_movie_name"
-                    android:maxLines="1"
-                    android:padding="16dp"
-                    android:singleLine="true"
-                    android:text="@={viewModel.enteredQuery}" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
                     android:layout_weight="0"
-                    android:background="@drawable/selector_blue_button"
-                    android:enabled="@{!viewModel.isLoading}"
-                    android:onClick="@{viewModel::onFindMovieClick}"
-                    android:src="@drawable/ic_find"
-                    android:text="Find"
-                    android:textColor="@android:color/white" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_edit_text_movie_name"
+                        android:maxLines="1"
+                        android:padding="16dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.enteredQuery}"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@color/colorLightWhite" />
+
+                    <TextView
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="0"
+                        android:background="@drawable/ripple_effect"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:onClick="@{viewModel::onFindMovieClick}"
+                        android:padding="16dp"
+                        android:text="@string/title_find"
+                        android:textAllCaps="true"
+                        android:textColor="@{viewModel.isLoading ? @color/colorLightWhite : @android:color/white}" />
+                </LinearLayout>
+
             </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -80,17 +76,17 @@
                 app:configuration="@{viewModel.recyclerConfiguration}" />
 
             <TextView
-                android:layout_weight="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:background="@color/blueGray"
                 android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/loading_next_page"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/material_text_subhead"
-                android:text="@string/loading_next_page"
-                android:padding="8dp"
-                android:visibility="@{viewModel.isLoadingNextPage}"
-                android:background="@color/blue_gray"
-                android:layout_gravity="center" />
+                android:visibility="@{viewModel.isLoadingNextPage}" />
         </LinearLayout>
 
         <ProgressBar
@@ -104,8 +100,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:text="@string/no_data"
-            android:textSize="@dimen/material_text_title"
+            android:textSize="18sp"
             android:visibility="@{viewModel.moviesItems.size() == 0 &amp;&amp; !viewModel.isLoading}" />
 
     </FrameLayout>

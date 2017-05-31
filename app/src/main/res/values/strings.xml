@@ -6,11 +6,16 @@
     <string name="the_movie_db_api_key">d62432ae19de56402134f9cd8c3f49ae</string>
 
     <string name="hint_edit_text_movie_name">Enter movie name here</string>
-    <string name="no_data">No data</string>
+    <string name="no_data">No data found. Please, retry or type another search query.</string>
     <string name="overview">Overview</string>
     <string name="loading_next_page">Loading next page...</string>
     <string name="start">Start exploring</string>
     <string name="project_overview">This project was designed to demonstrate implementation of MVVM and Data Binding Library</string>
     <string name="tap_twice_to_close_the_app">Tap twice on Back Icon to close the app</string>
+
+    <string name="release_data">Release date: %s</string>
+    <string name="rating_title">Rating: %s/10</string>
+    <string name="no_overview">There is no available overview.</string>
+    <string name="title_find">Find</string>
 
 </resources>

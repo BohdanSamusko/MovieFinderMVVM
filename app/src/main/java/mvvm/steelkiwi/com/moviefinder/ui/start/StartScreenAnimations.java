@@ -12,7 +12,9 @@ import mvvm.steelkiwi.com.moviefinder.MovieFinderApp;
 import mvvm.steelkiwi.com.moviefinder.R;
 import mvvm.steelkiwi.com.moviefinder.databinding.ActivityStartBinding;
 import mvvm.steelkiwi.com.moviefinder.utils.AnimationUtils;
+import mvvm.steelkiwi.com.moviefinder.utils.GlobalAppUtils;
 import mvvm.steelkiwi.com.moviefinder.utils.SimpleAnimListener;
+import timber.log.Timber;
 
 /**
  * Created by bohdan on 07.05.17.
@@ -76,21 +78,21 @@ public class StartScreenAnimations {
 
             }
         });
-
     }
 
-
     public static void onStartButtonAnimation(@NonNull final ActivityStartBinding binding, @NonNull Point pointOfClick, @NonNull final SimpleAnimListener simpleAnimListener) {
-
+        if (!GlobalAppUtils.isLollipopOrHigher()) {
+            simpleAnimListener.onFinished();
+            Timber.e("Animation is not allowed on devices with Android version lower than API 21 Lollipop");
+            return;
+        }
         // animation for elements
         View title = binding.projectTitle;
         AnimationUtils.fadeAnimation(title, 1f, 0f, ELEMENTS_FADING_DURATION, 0, new AccelerateInterpolator());
-        //AnimationUtils.translateYAnim(title, 0,  ELEMENTS_TRANSLATE_VALUE, ELEMENTS_FADING_DURATION, 0, new AccelerateInterpolator());
         AnimationUtils.translateXAnim(title, 0,  ELEMENTS_TRANSLATE_VALUE, ELEMENTS_FADING_DURATION, 0, new AccelerateInterpolator());
 
         View description = binding.projectDescription;
         AnimationUtils.fadeAnimation(description, 1f, 0f, ELEMENTS_FADING_DURATION, 0, new AccelerateInterpolator());
-       // AnimationUtils.translateYAnim(description, 0,  ELEMENTS_TRANSLATE_VALUE, ELEMENTS_FADING_DURATION, 0, new AccelerateInterpolator());
         AnimationUtils.translateXAnim(description, 0,  -ELEMENTS_TRANSLATE_VALUE, ELEMENTS_FADING_DURATION, 0, new AccelerateInterpolator());
 
 

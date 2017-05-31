@@ -1,0 +1,3 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+   <!-- Ripple effect is not supported on devices with Android version lower than API 21 Lollipop -->
+</shape>

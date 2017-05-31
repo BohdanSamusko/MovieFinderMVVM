@@ -1,89 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="item"
-            type="mvvm.steelkiwi.com.moviefinder.services.rest.dto.movies.MovieDTO" />
+            type="mvvm.steelkiwi.com.moviefinder.ui.main.MovieItem" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:layout_gravity="bottom"
-            android:background="@color/blue_gray" />
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white"
+            android:stateListAnimator="@anim/lift_on_touch">
 
-            <mvvm.steelkiwi.com.moviefinder.base.custom_views.MovieThumbnailView
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:scaleType="centerCrop"
-                android:src="@{item.posterPath}" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="16dp"
-                android:gravity="center_vertical"
-                android:paddingRight="4dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.title}"
-                    android:textColor="@color/blue_gray"
-                    android:textSize="@dimen/material_text_title" />
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_weight="0"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@android:drawable/ic_menu_today" />
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <mvvm.steelkiwi.com.moviefinder.base.custom_views.MovieThumbnailView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:scaleType="centerCrop"
+                            android:src="@{item.movieDTO.posterPath}" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingLeft="16dp"
+                            android:paddingRight="4dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginTop="8dp"
+                                android:text="@{item.movieDTO.title}"
+                                android:textColor="@color/colorDarkGray"
+                                android:textSize="@dimen/material_text_title"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:text="@{item.formattedReleaseDate}"
+                                android:textSize="@dimen/material_text_subhead"
+
+                                android:textStyle="italic" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{String.format(@string/rating_title, item.movieDTO.voteAverage)}"
+                                android:textSize="@dimen/material_text_subhead"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/material_text_subhead"
-                        android:text="@{item.releaseDate}"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_weight="0"
-                        android:textSize="@dimen/material_text_subhead"
-                        android:text="@{String.valueOf(item.voteAverage)}"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_weight="0"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_star" />
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="@{item.isShowDescription}"
+                        android:text="@{item.formattedOverview}" />
                 </LinearLayout>
+            </FrameLayout>
 
-            </LinearLayout>
-        </LinearLayout>
+            <!-- layout for making ripple animation when click on item -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple_effect" />
+        </android.support.v7.widget.CardView>
+
+
     </FrameLayout>
 </layout>

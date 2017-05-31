@@ -30,6 +30,8 @@ public class StartActivityVM extends ActivityViewModel<StartActivity> {
     public StartActivityVM(StartActivity activity) {
         super(activity);
         Timber.i("StartActivityVM();");
+
+
         StartScreenAnimations.onScreenRevealAnimation(getActivity().getBinding());
     }
 

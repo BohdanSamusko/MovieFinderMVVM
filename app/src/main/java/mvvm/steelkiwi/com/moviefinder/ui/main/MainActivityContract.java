@@ -14,6 +14,4 @@ public interface MainActivityContract {
     void loadNextPage();
     void onFindMovieClick(View view);
 
-    void openMovieDetails(MovieDTO movieDTO);
-
 }

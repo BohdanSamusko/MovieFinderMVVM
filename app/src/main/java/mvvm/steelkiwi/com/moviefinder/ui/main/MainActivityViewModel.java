@@ -1,6 +1,5 @@
 package mvvm.steelkiwi.com.moviefinder.ui.main;
 
-import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,7 +17,6 @@ import mvvm.steelkiwi.com.moviefinder.base.mvvm.activities.ActivityViewModel;
 import mvvm.steelkiwi.com.moviefinder.services.rest.dto.movies.MovieDTO;
 import mvvm.steelkiwi.com.moviefinder.services.rest.dto.movies.SearchMovieListResponseDTO;
 import mvvm.steelkiwi.com.moviefinder.services.rest.models.MoviesModel;
-import mvvm.steelkiwi.com.moviefinder.ui.movie_details.MovieDetailsActivity;
 import rx.Subscriber;
 import timber.log.Timber;
 
@@ -40,15 +38,16 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
     private final int DEVICE_ITEM_LAYOUT = R.layout.item_movie_preview; // id of list item
 
     // collection for storing results of searching
-    private ArrayList<MovieDTO> moviesItems = new ArrayList<>();
+    private ArrayList<MovieItem> moviesItems = new ArrayList<>();
 
     // custom binding adapter for recycler view
-    private RecyclerBindingAdapter<MovieDTO> adapter;
+    private RecyclerBindingAdapter<MovieItem> adapter;
 
     // for pagination logic
-    private int currentPage = 1;
     private int nextPage = 1;
 
+    // clicked item
+    private int clickedItemPosition = -1;
 
     public MainActivityViewModel(MainActivity activity) {
         super(activity);
@@ -63,30 +62,30 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
     private void initList() {
         adapter = getAdapter();
 
-        // configuring recyclerConfiguration which is binded with recycler view
+        // configuring recyclerConfiguration which is bound with recycler view
         recyclerConfiguration.setLayoutManager(new LinearLayoutManager(activity));
         recyclerConfiguration.setItemAnimator(new DefaultItemAnimator());
         recyclerConfiguration.setAdapter(adapter);
     }
 
-    private RecyclerBindingAdapter<MovieDTO> getAdapter() {
+    private RecyclerBindingAdapter<MovieItem> getAdapter() {
 
         int variableId = BR.item; // variable which defined in layout file for movie item
 
-        RecyclerBindingAdapter<MovieDTO> moviesAdapter = new RecyclerBindingAdapter<>(DEVICE_ITEM_LAYOUT, variableId, moviesItems);
+        RecyclerBindingAdapter<MovieItem> moviesAdapter = new RecyclerBindingAdapter<>(DEVICE_ITEM_LAYOUT, variableId, moviesItems);
 
         // setting click listener for movie item
-        moviesAdapter.setOnItemClickListener(new RecyclerBindingAdapter.OnItemClickListener<MovieDTO>() {
+        moviesAdapter.setOnItemClickListener(new RecyclerBindingAdapter.OnItemClickListener<MovieItem>() {
             @Override
-            public void onItemClick(int position, MovieDTO item) {
-                openMovieDetails(item);
+            public void onItemClick(int position, MovieItem item) {
+                handleClickOnItem(position, item);
             }
         });
 
         // passing listener for pagination with atTheEndOfList() method which will invoke after user scroll all list to bottom
-        moviesAdapter.setPaginationListener(new RecyclerBindingAdapter.PaginationListener<MovieDTO>() {
+        moviesAdapter.setPaginationListener(new RecyclerBindingAdapter.PaginationListener<MovieItem>() {
             @Override
-            public void atTheEndOfList(int position, MovieDTO item) {
+            public void atTheEndOfList(int position, MovieItem item) {
                 loadNextPage();
             }
         });
@@ -94,11 +93,24 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
         return moviesAdapter;
     }
 
+    private void handleClickOnItem(int position, MovieItem item) {
+        if (clickedItemPosition != -1 && clickedItemPosition != position) {
+            MovieItem previouslyClickedItem = moviesItems.get(clickedItemPosition);
+            if (previouslyClickedItem.getIsShowDescription()){
+                previouslyClickedItem.setIsShowDescription(false);
+                adapter.notifyItemChanged(clickedItemPosition);
+            }
+        }
+        item.setIsShowDescription(!item.getIsShowDescription());
+        adapter.notifyItemChanged(position);
+
+        clickedItemPosition = position;
+    }
+
 
     @Override
     public void onFindMovieClick(View view) {
         nextPage = 1;
-        currentPage = 1;
         searchedQuery = enteredQuery.get();
         findMovie(searchedQuery);
         activity.hideSoftKeyboard(); // hide keyboard to enable displaying of all list with results
@@ -106,8 +118,8 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
 
     @Override
     public void findMovie(String query) {
-        // checking if new page with results exists
-        if (currentPage != 1 && nextPage == currentPage) {
+        // checking if new page is available
+        if (nextPage == -1) {
             Timber.i("All pages are loaded");
             return;
         }
@@ -150,12 +162,17 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
                     if (nextPage == 1) {
                         moviesItems.clear();
                     }
-                    moviesItems.addAll(searchMovieListResponseDTO.getResults());
+
+                    for (MovieDTO movieDTO : searchMovieListResponseDTO.getResults()) {
+                        moviesItems.add(new MovieItem(movieDTO));
+                    }
+
                     adapter.notifyDataSetChanged();
 
-                    currentPage = Integer.parseInt(searchMovieListResponseDTO.getPage());
                     if (nextPage < searchMovieListResponseDTO.getTotalPages()) {
                         nextPage++;
+                    } else {
+                        nextPage = -1; // mark that all pages loaded
                     }
                 }
             }
@@ -164,10 +181,12 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
 
     @Override
     public void loadNextPage() {
-        findMovie(searchedQuery);
+        if (!isLoading.get()) {
+            findMovie(searchedQuery);
+        }
     }
 
-    public ArrayList<MovieDTO> getMoviesItems() {
+    public ArrayList<MovieItem> getMoviesItems() {
         return moviesItems;
     }
 
@@ -175,10 +194,4 @@ public class MainActivityViewModel extends ActivityViewModel<MainActivity> imple
         return isLoadingNextPage;
     }
 
-    @Override
-    public void openMovieDetails(MovieDTO movieDTO) {
-        Intent intent = new Intent(activity, MovieDetailsActivity.class);
-        intent.putExtra(MovieDetailsActivity.MOVIE_OBJECT, movieDTO);
-        activity.startActivity(intent);
-    }
 }
