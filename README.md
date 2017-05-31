@@ -1,9 +1,8 @@
-# MovieFinderMVVM
+# An example of using Data Binding Library + MVVM in Android 
+
 [![Made in SteelKiwi](https://github.com/steelkiwi/Getting-started-with-Kotlin/blob/master/made_in_steelkiwi.png)](http://steelkiwi.com/blog/)
 
 This project was designed to demonstrate implementation of MVVM and Data Binding Library
-
-# An example of using Data Binding Library + MVVM in Android 
 
 
 ## What is data binding? 
