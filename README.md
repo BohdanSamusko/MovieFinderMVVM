@@ -25,7 +25,7 @@ Data Binding Library was firstly represented on Google I/O 2015.  This library e
 
 
 
-# Project's Details 
+## Project's Details 
  In this article will be described basic steps for creating simple REST-client app "AndroidMovieFinder" which will allow users to find movies and short overview of it by typing search word. Sample project uses TheMovieDB API for retrieving data. More about their API you can find here: [Overview of The Movie DB](https://www.themoviedb.org/about).
 
 
